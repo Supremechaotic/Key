@@ -1,3 +1,5 @@
+print(' KeyAuth Lua Example - https://github.com/mazk5145/')
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService("StarterGui")
 local LuaName = "KeyAuth Lua Example"
@@ -7,12 +9,22 @@ local initialized = false
 local sessionid = ""
 
 
-StarterGui:SetCore("SendNotification", {
-    Title = LuaName,
-    Text = " Intializing...",
-    Duration = 1
-})
 
+    Rayfield:Notify({
+   Title = "Olympic Hub",
+   Content = "Intializing...",
+   Duration = 5,
+   Image = 13047715178,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Dismiss!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+ 
 
 --* Application Details *--
 Name = "Script Keys" --* Application Name
@@ -85,7 +97,7 @@ MainSection:NewButton("Login to Application ?", "Please provide Password.", func
     if Key == "" then
         StarterGui:SetCore("SendNotification", {
             Title = LuaName,
-            Text = " Error: Username is empty.",
+            Text = " Error: Key is empty. (try pressing enter after pasting your key)",
             Duration = 3
         })
         return false
@@ -111,11 +123,21 @@ MainSection:NewButton("Login to Application ?", "Please provide Password.", func
         return false
     end
     
-    StarterGui:SetCore("SendNotification", {
-        Title = LuaName,
-        Text = " Successfully Authorized :)",
-        Duration = 5
-    })
+
+    Rayfield:Notify({
+   Title = "Welcome to Olympic Hub",
+   Content = "Successfully Authorized :)",
+   Duration = 5,
+   Image = 13047715178,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Dismiss!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
 
     -- Your Code --
 
@@ -146,8 +168,6 @@ local seconds = remainingTime % 60
 -- Format the remaining time as a string
 local formattedRemainingTime = string.format("%02d:%02d:%02d", hours, minutes, seconds)
 
-
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "Olympic Hub vb2.2 - Key Expires in " .. formattedRemainingTime,
@@ -180,22 +200,6 @@ local MobileTab = Window:CreateTab("Mobile", nil)
 local FunTab = Window:CreateTab("Fun", nil)
 local VisualsTab = Window:CreateTab("Visuals", nil)
 local MainSection = MainTab:CreateSection("Jump")
-
-
-
-Rayfield:Notify({
-   Title = "Welcome to Olympic Hub",
-   Duration = 5,
-   Image = 13047715178,
-   Actions = { -- Notification Buttons
-      Ignore = {
-         Name = "Okay!",
-         Callback = function()
-         print("The user tapped Okay!")
-      end
-   },
-},
-})
 
 
         
@@ -643,23 +647,6 @@ local sideColor = Color3.fromRGB(255, 215, 0)  -- Gold color
 
 
 
-local GoldToggle = VisualsTab:CreateToggle({
-    Name = "Color Toggle",
-    CurrentValue = true, -- Change this to false if you want it off by default
-    Flag = "ColorToggle",
-    Callback = function(Value)
-        if Value then
-            while Toggle.CurrentValue do
-                StaminaLevels.BackgroundColor3 = sideColor
-                wait(0.01) -- Adjust the wait time as needed
-                StaminaLevels.BackgroundColor3 = defaultColor
-                wait(0.01) -- Adjust the wait time as needed
-            end
-        else
-            StaminaLevels.BackgroundColor3 = defaultColor
-        end
-    end,
-})
 
 
 end)
