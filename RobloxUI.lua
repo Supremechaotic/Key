@@ -705,7 +705,7 @@ function Kavo.CreateLib(kavName, themeList)
                 textboxElement.AutoButtonColor = false
                 textboxElement.Font = Enum.Font.SourceSans
                 textboxElement.Text = ""
-                textboxElement.TextColor3 = Color3.fromRGB(0, 0, 0)
+                textboxElement.TextColor3 = Color3.fromRGB(240,240,240)
                 textboxElement.TextSize = 14.000
 
                 UICorner.CornerRadius = UDim.new(0, 4)
@@ -747,7 +747,7 @@ function Kavo.CreateLib(kavName, themeList)
                 TextBox.PlaceholderColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 19, themeList.SchemeColor.g * 255 - 26, themeList.SchemeColor.b * 255 - 35)
                 TextBox.PlaceholderText = "Type here!"
                 TextBox.Text = ""
-                TextBox.TextColor3 = themeList.SchemeColor
+                TextBox.TextColor3 = Color3.fromRGB(240,240,240)
                 TextBox.TextSize = 12.000
 
                 UICorner_2.CornerRadius = UDim.new(0, 4)
