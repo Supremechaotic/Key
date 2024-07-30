@@ -875,7 +875,7 @@ function Kavo.CreateLib(kavName, themeList)
                         moreInfo.TextColor3 = themeList.TextColor
                         write.ImageColor3 = themeList.SchemeColor
                         togName.TextColor3 = themeList.TextColor
-                        TextBox.PlaceholderColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 19, themeList.SchemeColor.g * 255 - 26, themeList.SchemeColor.b * 255 - 35)
+                        TextBox.PlaceholderColor3 = Color3.fromRGB(255,255,255)
                         TextBox.TextColor3 = Color3.fromRGB(255,255,255)
                     end
                 end)()
