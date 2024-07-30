@@ -905,7 +905,7 @@ function Kavo.CreateLib(kavName, themeList)
                     toggleElement.AutoButtonColor = false
                     toggleElement.Font = Enum.Font.SourceSans
                     toggleElement.Text = ""
-                    toggleElement.TextColor3 = Color3.fromRGB(0, 0, 0)
+                    toggleElement.TextColor3 = Color3.fromRGB(255, 255, 255)
                     toggleElement.TextSize = 14.000
 
                     UICorner.CornerRadius = UDim.new(0, 4)
