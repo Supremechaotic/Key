@@ -354,13 +354,13 @@ function Kavo.CreateLib(kavName, themeList)
                         Utility:TweenObject(v, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                     end 
                     if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
-                        Utility:TweenObject(v, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
+                        Utility:TweenObject(v, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                     end 
                     Utility:TweenObject(v, {BackgroundTransparency = 1}, 0.2)
                 end
             end
             if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-                Utility:TweenObject(tabButton, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
+                Utility:TweenObject(tabButton, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
             end 
             if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
                 Utility:TweenObject(tabButton, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
@@ -447,7 +447,7 @@ function Kavo.CreateLib(kavName, themeList)
             sectionName.TextSize = 14.000
             sectionName.TextXAlignment = Enum.TextXAlignment.Left
             if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-                Utility:TweenObject(sectionName, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
+                Utility:TweenObject(sectionName, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
             end 
             if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
                 Utility:TweenObject(sectionName, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
@@ -508,7 +508,7 @@ function Kavo.CreateLib(kavName, themeList)
                 buttonElement.AutoButtonColor = false
                 buttonElement.Font = Enum.Font.SourceSans
                 buttonElement.Text = ""
-                buttonElement.TextColor3 = Color3.fromRGB(0, 0, 0)
+                buttonElement.TextColor3 = Color3.fromRGB(255, 255, 255)
                 buttonElement.TextSize = 14.000
                 Objects[buttonElement] = "BackgroundColor3"
 
@@ -587,7 +587,7 @@ function Kavo.CreateLib(kavName, themeList)
                 btnInfo.TextXAlignment = Enum.TextXAlignment.Left
 
                 if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
+                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                 end 
                 if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
                     Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
@@ -783,7 +783,7 @@ function Kavo.CreateLib(kavName, themeList)
                 moreInfo.TextXAlignment = Enum.TextXAlignment.Left
 
                 if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
+                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                 end 
                 if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
                     Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
@@ -989,7 +989,7 @@ function Kavo.CreateLib(kavName, themeList)
                     local ms = game.Players.LocalPlayer:GetMouse()
 
                     if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-                        Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
+                        Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                     end 
                     if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
                         Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
@@ -1158,7 +1158,7 @@ function Kavo.CreateLib(kavName, themeList)
                 sliderElement.AutoButtonColor = false
                 sliderElement.Font = Enum.Font.SourceSans
                 sliderElement.Text = ""
-                sliderElement.TextColor3 = Color3.fromRGB(0, 0, 0)
+                sliderElement.TextColor3 = Color3.fromRGB(255, 255, 255)
                 sliderElement.TextSize = 14.000
 
                 UICorner.CornerRadius = UDim.new(0, 4)
@@ -1198,7 +1198,7 @@ function Kavo.CreateLib(kavName, themeList)
                 sliderBtn.AutoButtonColor = false
                 sliderBtn.Font = Enum.Font.SourceSans
                 sliderBtn.Text = ""
-                sliderBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+                sliderBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
                 sliderBtn.TextSize = 14.000
 
                 UICorner_2.Parent = sliderBtn
@@ -1261,7 +1261,7 @@ function Kavo.CreateLib(kavName, themeList)
                 UICorner.Parent = moreInfo
 
                 if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
+                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                 end 
                 if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
                     Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
@@ -1419,7 +1419,7 @@ function Kavo.CreateLib(kavName, themeList)
                 dropOpen.AutoButtonColor = false
                 dropOpen.Font = Enum.Font.SourceSans
                 dropOpen.Text = ""
-                dropOpen.TextColor3 = Color3.fromRGB(0, 0, 0)
+                dropOpen.TextColor3 = Color3.fromRGB(255, 255, 255)
                 dropOpen.TextSize = 14.000
                 dropOpen.ClipsDescendants = true
                 dropOpen.MouseButton1Click:Connect(function()
@@ -1590,7 +1590,7 @@ function Kavo.CreateLib(kavName, themeList)
                 UICorner.Parent = moreInfo
 
                 if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
+                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                 end 
                 if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
                     Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
@@ -1852,7 +1852,7 @@ function Kavo.CreateLib(kavName, themeList)
                 keybindElement.AutoButtonColor = false
                 keybindElement.Font = Enum.Font.SourceSans
                 keybindElement.Text = ""
-                keybindElement.TextColor3 = Color3.fromRGB(0, 0, 0)
+                keybindElement.TextColor3 = Color3.fromRGB(255, 255, 255)
                 keybindElement.TextSize = 14.000
                 keybindElement.MouseButton1Click:connect(function(e) 
                     if not focusing then
