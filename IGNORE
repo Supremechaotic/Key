@@ -1,4 +1,3 @@
-print(' KeyAuth Lua Example - https://github.com/mazk5145/')
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService("StarterGui")
 local LuaName = "KeyAuth Lua Example"
@@ -178,8 +177,11 @@ local Window = Rayfield:CreateWindow({
 
 local MainTab = Window:CreateTab("🏠 Home", nil) -- Title, Image
 local MobileTab = Window:CreateTab("Mobile", nil)
-local FunTab = Window:CreateTab("Fun", nil)-- Title, Image
+local FunTab = Window:CreateTab("Fun", nil)
+local VisualsTab = Window:CreateTab("Visuals", nil)
 local MainSection = MainTab:CreateSection("Jump")
+
+
 
 Rayfield:Notify({
    Title = "Welcome to Olympic Hub",
@@ -604,8 +606,60 @@ local MBMacroDelaySlider = MobileTab:CreateSlider({
    end,
 })
 
+local Camera = workspace.CurrentCamera
+
+local defaultFOV = Camera.FieldOfView
+local sideFOV = 120 -- Adjust this value to your desired side FOV
 
 
-    
+
+local Toggle = VisualsTab:CreateToggle({
+   Name = "FOV Toggle",
+   CurrentValue = true, -- Change this to false if you want it off by default
+   Flag = "SideFOVToggle",
+   Callback = function(Value)
+      if Value then
+         Camera.FieldOfView = sideFOV
+      else
+         Camera.FieldOfView = defaultFOV
+      end
+   end,
+})
+
+-- Set the initial FOV based on the default toggle state
+if Toggle.CurrentValue then
+    Camera.FieldOfView = sideFOV
+else
+    Camera.FieldOfView = defaultFOV
+end
+
+local player = game.Players.LocalPlayer
+local SprintGUI = player:WaitForChild("PlayerGui"):WaitForChild("SprintGui")
+local StaminaBox = SprintGUI:WaitForChild("StaminaBox")
+local StaminaLevels = StaminaBox:WaitForChild("StaminaLevels")
+
+local defaultColor = Color3.fromRGB(33, 255, 6) -- Normal color
+local sideColor = Color3.fromRGB(255, 215, 0)  -- Gold color
+
+
+
+local GoldToggle = VisualsTab:CreateToggle({
+    Name = "Color Toggle",
+    CurrentValue = true, -- Change this to false if you want it off by default
+    Flag = "ColorToggle",
+    Callback = function(Value)
+        if Value then
+            while Toggle.CurrentValue do
+                StaminaLevels.BackgroundColor3 = sideColor
+                wait(0.01) -- Adjust the wait time as needed
+                StaminaLevels.BackgroundColor3 = defaultColor
+                wait(0.01) -- Adjust the wait time as needed
+            end
+        else
+            StaminaLevels.BackgroundColor3 = defaultColor
+        end
+    end,
+})
+
 
 end)
