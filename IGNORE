@@ -1,0 +1,611 @@
+print(' KeyAuth Lua Example - https://github.com/mazk5145/')
+local HttpService = game:GetService("HttpService")
+local StarterGui = game:GetService("StarterGui")
+local LuaName = "KeyAuth Lua Example"
+
+--* Configuration *--
+local initialized = false
+local sessionid = ""
+
+
+StarterGui:SetCore("SendNotification", {
+    Title = LuaName,
+    Text = " Intializing...",
+    Duration = 1
+})
+
+
+--* Application Details *--
+Name = "Script Keys" --* Application Name
+Ownerid = "a9a22ceb85e5d4137dba83409eed80c4" --* OwnerID
+APPVersion = "1.0"     --* Application Version
+
+local req = game:HttpGet('https://keyauth.win/api/1.2/?type=init&ver=1.0&name=Script%20Keys&ownerid=62wGacpG8N')
+
+
+
+if req == "KeyAuth_Invalid" then 
+   print(" Error: Application not found.")
+
+   StarterGui:SetCore("SendNotification", {
+	   Title = LuaName,
+	   Text = " Error: Application not found.",
+	   Duration = 3
+   })
+
+   return false
+end
+
+local data = HttpService:JSONDecode(req)
+
+if data.success == true then
+   initialized = true
+   sessionid = data.sessionid
+   --print(req)
+elseif (data.message == "invalidver") then
+   print(" Error: Wrong application version..")
+
+   StarterGui:SetCore("SendNotification", {
+	   Title = LuaName,
+	   Text = " Error: Wrong application version..",
+	   Duration = 3
+   })
+
+   return false
+else
+   print(" Error: " .. data.message)
+   return false
+end
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Supremechaotic/Key/main/RobloxUI.lua"))()
+local Window = Library.CreateLib("Olympic Hub Sign In Page")
+
+-- Tabs --
+local Tab = Window:NewTab("Welcome")
+local WelcomeSection = Tab:NewSection("Welcome")
+
+local LoginTab = Window:NewTab("Login")
+local MainSection = LoginTab:NewSection("Login")
+
+-- Configuration !! KEEP CLEAR !!--
+local Key = ""
+
+local req = game:HttpGet('https://keyauth.win/api/1.2/?type=fetchStats&name=Script%20Keys&ownerid=62wGacpG8N&sessionid=' .. sessionid)
+local data = HttpService:JSONDecode(req)
+WelcomeSection.NewLabel("Application Details", "Number of users: " .. data.appinfo.numUsers .. "\nNumber of online users: " .. data.appinfo.numOnlineUsers .. "\n Number of keys: " .. data.appinfo.numKeys .. "\n Application Version: " .. data.appinfo.version)
+
+-- Text Boxes and Login Button --
+MainSection:NewTextBox("License", "Please provide License.", function(state)
+    if state then
+        Key = state
+    end
+end)
+
+
+MainSection:NewButton("Login to Application ?", "Please provide Password.", function(state)
+    if Key == "" then
+        StarterGui:SetCore("SendNotification", {
+            Title = LuaName,
+            Text = " Error: Username is empty.",
+            Duration = 3
+        })
+        return false
+    end
+
+
+    Library.Destroy()
+
+    local req = game:HttpGet('https://keyauth.win/api/1.2/?type=license&key=' .. Key .. '&sessionid=' .. sessionid .. '&name=Script%20Keys&ownerid=62wGacpG8N')
+    print('https://keyauth.win/api/1.2/?type=license&key=' .. Key .. '&sessionid=' .. sessionid .. '&name=Script%20Keys&ownerid=62wGacpG8N')
+    local data = HttpService:JSONDecode(req)
+    
+    
+    if data.success == false then 
+        print(" Error: " .. data.message )
+    
+       StarterGui:SetCore("SendNotification", {
+           Title = LuaName,
+           Text = " Error: " .. data.message,
+           Duration = 5
+       })
+    
+        return false
+    end
+    
+    StarterGui:SetCore("SendNotification", {
+        Title = LuaName,
+        Text = " Successfully Authorized :)",
+        Duration = 5
+    })
+
+    -- Your Code --
+
+    -- Example Code --
+local req = game:HttpGet('https://keyauth.win/api/seller/?sellerkey=a9a22ceb85e5d4137dba83409eed80c4&type=info&key=' .. Key)
+local data = HttpService:JSONDecode(req)
+
+-- Convert duration from seconds to hours, minutes, and seconds
+-- Get the current time and calculate the elapsed time
+local currentTime = os.time()
+local elapsedTime = currentTime - data.usedon
+
+-- Total duration in seconds (4 hours = 14400 seconds)
+local totalDuration = 14400
+
+-- Calculate remaining time
+local remainingTime = totalDuration - elapsedTime
+
+if remainingTime < 0 then
+    remainingTime = 0
+end
+
+-- Convert remaining time from seconds to hours, minutes, and seconds
+local hours = math.floor(remainingTime / 3600)
+local minutes = math.floor((remainingTime % 3600) / 60)
+local seconds = remainingTime % 60
+
+-- Format the remaining time as a string
+local formattedRemainingTime = string.format("%02d:%02d:%02d", hours, minutes, seconds)
+
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Olympic Hub vb2.2 - Key Expires in " .. formattedRemainingTime,
+   LoadingTitle = "Track and Field Unlimited",
+   LoadingSubtitle = "by J.oeys",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Example Hub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Key | Olympic Hub",
+      Subtitle = "Key System",
+      Note = "Key In Discord Server",
+      FileName = "trackandfield987654321", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://keyauth.win/api/seller/?sellerkey=a9a22ceb85e5d4137dba83409eed80c4&type=fetchallkeys&format=txt"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("🏠 Home", nil) -- Title, Image
+local MobileTab = Window:CreateTab("Mobile", nil)
+local FunTab = Window:CreateTab("Fun", nil)-- Title, Image
+local MainSection = MainTab:CreateSection("Jump")
+
+Rayfield:Notify({
+   Title = "Welcome to Olympic Hub",
+   Duration = 5,
+   Image = 13047715178,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+
+        
+local Button = MainTab:CreateButton({
+   Name = "Infinite Jump Toggle",
+   Callback = function()
+       -- Toggles the infinite jump between on or off on every script run
+       _G.infinjump = not _G.infinjump
+
+       if _G.infinJumpStarted == nil then
+           -- Ensures this only runs once to save resources
+           _G.infinJumpStarted = true
+
+           -- Notifies readiness
+           game.StarterGui:SetCore("SendNotification", {Title="Olympic Hub", Text="Infinite Jump Activated!", Duration=5})
+
+           -- The actual infinite jump
+           local plr = game:GetService('Players').LocalPlayer
+           local m = plr:GetMouse()
+           m.KeyDown:connect(function(k)
+               if _G.infinjump then
+                   if k:byte() == 32 then
+                       local humanoid = game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+                       humanoid:ChangeState('Jumping')
+                       wait()
+                       humanoid:ChangeState('Seated')
+                   end
+               end
+           end)
+       end
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+    Name = "JumpHeight Slider",
+    Range = {1, 100}, -- Adjust the range as needed
+    Increment = 1,
+    Suffix = "Height",
+    CurrentValue = 7.2, -- Default JumpHeight value
+    Flag = "sliderjh", -- Ensure this flag is unique
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpHeight = Value
+    end,
+})
+
+local OtherSection = MainTab:CreateSection("Legit (PC ONLY)")
+
+local MacroButton = MainTab:CreateButton({
+   Name = "PC Macro Toggle",
+   Callback = function()
+       _G.macroEnabled = not _G.macroEnabled
+
+       if _G.macroThread == nil then
+           _G.macroThread = coroutine.create(function()
+               while true do
+                   if _G.macroEnabled then
+                       -- Simulate pressing Q
+                       game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.Q, false, game)
+                       game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.Q, false, game)
+                       wait(macroDelay)
+                       -- Simulate pressing E
+                       game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
+                       game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
+                       wait(macroDelay)
+                   else
+                       wait(0.1)
+                   end
+               end
+           end)
+           coroutine.resume(_G.macroThread)
+       end
+   end,
+})
+
+-- Slider for Macro Delay
+local macroDelay = 0.1
+local MacroDelaySlider = MainTab:CreateSlider({
+   Name = "Macro Delay",
+   Range = {0.001, 1},
+   Increment = 0.01,
+   Suffix = "Seconds",
+   CurrentValue = macroDelay,
+   Flag = "macrodly",
+   Callback = function(Value)
+       macroDelay = Value
+   end,
+})
+
+local OtherSection = MainTab:CreateSection("Rage")
+
+local SliderValue = 16 -- Default speed value
+local customSpeedEnabled = false -- Variable to track if custom speed is enabled
+
+local CustomSpeedButton = MainTab:CreateButton({
+   Name = "Toggle Custom Speed",
+   Callback = function()
+       customSpeedEnabled = not customSpeedEnabled
+       if customSpeedEnabled then
+           game.StarterGui:SetCore("SendNotification", {Title="Olympic Hub", Text="Custom Speed Enabled!", Duration=5})
+       else
+           game.StarterGui:SetCore("SendNotification", {Title="Olympic Hub", Text="Custom Speed Disabled!", Duration=5})
+       end
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "Custom Speed Slider",
+   Range = {1, 50},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = SliderValue,
+   Flag = "sliderws",
+   Callback = function(Value)
+       SliderValue = Value
+   end,
+})
+
+local function applyCustomSpeed()
+    while true do
+        if customSpeedEnabled then
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+            if humanoidRootPart and humanoid then
+                local bodyVelocity = humanoidRootPart:FindFirstChild("BodyVelocity") or Instance.new("BodyVelocity")
+                bodyVelocity.Name = "BodyVelocity"
+                bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                bodyVelocity.MaxForce = Vector3.new(0, 0, 0)
+                bodyVelocity.Parent = humanoidRootPart
+
+                local moveDirection = humanoid.MoveDirection
+                bodyVelocity.Velocity = moveDirection * SliderValue
+                bodyVelocity.MaxForce = Vector3.new(math.huge, 0, math.huge)
+            end
+        else
+            -- Disable custom speed by removing the BodyVelocity instance
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            if humanoidRootPart then
+                local bodyVelocity = humanoidRootPart:FindFirstChild("BodyVelocity")
+                if bodyVelocity then
+                    bodyVelocity:Destroy()
+                end
+            end
+        end
+        wait(0.1) -- Adjust the wait time as needed
+    end
+end
+
+-- Start the speed application loop
+coroutine.wrap(applyCustomSpeed)()
+
+-- Celebration Animation Dropdown
+local AnimationSection = FunTab:CreateSection("Celebration")
+
+local ToggleButton = FunTab:CreateButton({
+    Name = "Stop Celebration",
+    Flag = "ToggleButton1",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+        if humanoid then
+            if isAnimationPlaying then
+                -- Stop the animation
+                if playingAnimationTrack then
+                    playingAnimationTrack:Stop()
+                    playingAnimationTrack = nil
+                end
+                isAnimationPlaying = false
+                print("Animation stopped")
+            else
+                -- Play the currently selected animation
+                local selectedOption = Dropdown:GetCurrentOption() -- Retrieve the selected option
+                local selectedAnimationId = celebrationAnimations[selectedOption]
+                
+                if selectedAnimationId then
+                    local animation = Instance.new("Animation")
+                    animation.AnimationId = "rbxassetid://" .. selectedAnimationId
+                    playingAnimationTrack = humanoid:LoadAnimation(animation)
+                    playingAnimationTrack:Play()
+                    isAnimationPlaying = true
+                    print("Playing animation with ID: ", selectedAnimationId)
+                else
+                    print("Error: No animation ID found for option ", selectedOption)
+                end
+            end
+        else
+            print("Error: Humanoid not found in character")
+        end
+    end
+})
+
+local celebrationAnimations = {
+    ["Animation 1"] = "3333499508",
+    ["Animation 2"] = "4841405708",
+    ["Animation 3"] = "5917459365",
+    ["Animation 4"] = "3337994105",
+    ["Animation 5"] = "5104344710",
+    ["Animation 6"] = "5937560570",
+    ["Animation 7"] = "6869766175",
+    ["Animation 8"] = "6797888062",
+    ["Animation 9"] = "3333136415",
+    ["Animation 10"] = "5915648917",
+    ["Animation 11"] = "7199000883",
+    ["Animation 12"] = "7422779536",
+    ["Animation 13"] = "6862001787",
+    ["Animation 14"] = "5937558680",
+    ["Animation 15"] = "4349242221",
+    ["Animation 16"] = "6797890377",
+    ["Animation 17"] = "3333331310",
+    ["Animation 18"] = "7465946930",
+    ["Animation 19"] = "4265701731",
+    ["Animation 20"] = "5918728267",
+    ["Animation 21"] = "5230598276",
+    ["Animation 22"] = "3333387824",
+    ["Animation 23"] = "3361426436",
+    ["Animation 24"] = "6862022283",
+    ["Animation 25"] = "6797891807",
+    ["Animation 26"] = "4210116953",
+    ["Animation 27"] = "4212455378",
+    ["Animation 28"] = "5915713518",
+    ["Animation 29"] = "3361276673",
+    ["Animation 30"] = "3338025566",
+    ["Animation 31"] = "7422807549",
+    ["Animation 32"] = "4555808220",
+    ["Animation 33"] = "3333432454",
+    ["Animation 34"] = "4101966434",
+    ["Animation 35"] = "6532134724",
+    ["Animation 36"] = "4349285876",
+    ["Animation 37"] = "6533093212",
+    ["Animation 38"] = "4555782893",
+    ["Animation 39"] = "7422797678",
+    ["Animation 40"] = "7465997989",
+    ["Animation 41"] = "3338083565",
+    ["Animation 42"] = "3695333486",
+    ["Animation 43"] = "5915712534"
+}
+
+local Dropdown = FunTab:CreateDropdown({
+   Name = "Select Celebration Animation",
+   Options = {
+    "Animation 1",
+    "Animation 2",
+    "Animation 3",
+    "Animation 4",
+    "Animation 5",
+    "Animation 6",
+    "Animation 7",
+    "Animation 8",
+    "Animation 9",
+    "Animation 10",
+    "Animation 11",
+    "Animation 12",
+    "Animation 13",
+    "Animation 14",
+    "Animation 15",
+    "Animation 16",
+    "Animation 17",
+    "Animation 18",
+    "Animation 19",
+    "Animation 20",
+    "Animation 21",
+    "Animation 22",
+    "Animation 23",
+    "Animation 24",
+    "Animation 25",
+    "Animation 26",
+    "Animation 27",
+    "Animation 28",
+    "Animation 29",
+    "Animation 30",
+    "Animation 31",
+    "Animation 32",
+    "Animation 33",
+    "Animation 34",
+    "Animation 35",
+    "Animation 36",
+    "Animation 37",
+    "Animation 38",
+    "Animation 39",
+    "Animation 40",
+    "Animation 41",
+    "Animation 42",
+    "Animation 43"
+},
+   CurrentOption = "Animation 1",
+   MultipleOptions = false,
+   Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+    local selectedOption = Option[1]
+    local selectedAnimationId = celebrationAnimations[selectedOption]
+
+    if selectedAnimationId then
+        -- Stop any existing animation tracks
+        if playingAnimationTrack then
+            playingAnimationTrack:Stop()
+            playingAnimationTrack = nil
+        end
+
+        -- Load and play the selected animation
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+        if humanoid then
+            local animation = Instance.new("Animation")
+            animation.AnimationId = "rbxassetid://" .. selectedAnimationId
+            playingAnimationTrack = humanoid:LoadAnimation(animation)
+            playingAnimationTrack:Play()
+            isAnimationPlaying = true
+            print("Playing animation with ID: ", selectedAnimationId)
+        else
+            print("Error: Humanoid not found in character")
+        end
+    else
+        print("Error: No animation ID found for option ", selectedOption)
+    end
+end,
+})
+
+local DeviceSection = FunTab:CreateSection("Spoofer")
+
+local deviceTypes = {
+    ["Mobile"] = "Mobile",
+    ["PC"] = "PC",
+    ["Controller"] = "Controller"
+}
+
+local selectedDeviceType = "PC" -- Default device type
+
+local DeviceDropdown = FunTab:CreateDropdown({
+    Name = "Choose Device",
+    Options = {"Mobile", "PC", "Controller"},
+    CurrentOption = "PC",
+    MultipleOptions = false,
+    Flag = "DeviceDropdown",
+    Callback = function(Option)
+        selectedDeviceType = deviceTypes[Option[1]]
+    end,
+})
+
+local spoofingThread
+
+local SpoofButton = FunTab:CreateButton({
+    Name = "Spoof Device",
+    Callback = function()
+        if spoofingThread then
+            coroutine.close(spoofingThread)
+        end
+
+        spoofingThread = coroutine.create(function()
+            while true do
+                local args = {
+                    [1] = {
+                        ["deviceType"] = selectedDeviceType
+                    }
+                }
+                game:GetService("ReplicatedStorage").RemoteEvents.GameLoop.SetRuntimeData:FireServer(unpack(args))
+                wait()
+            end
+        end)
+        
+        coroutine.resume(spoofingThread)
+    end,
+})
+local MobileSection = MobileTab:CreateSection("Legit (Mobile Only)")
+
+local MBMacroButton = MobileTab:CreateButton({
+   Name = "Mobile Macro Toggle",
+   Callback = function()
+       _G.MBmacroEnabled = not _G.MBmacroEnabled
+
+       if _G.MBmacroThread == nil then
+           _G.MBmacroThread = coroutine.create(function()
+               while true do
+                   if _G.macroEnabled then
+                       -- Simulate pressing Q
+                       game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.UserInputType.Touch, false, game)
+                       game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.UserInputType.Touch, false, game)
+                       wait(macroDelay)
+                       wait(MBmacroDelay)
+                   else
+                       wait(0.1)
+                   end
+               end
+           end)
+           coroutine.resume(_G.MBmacroThread)
+       end
+   end,
+})
+
+-- Slider for Macro Delay
+local MBmacroDelay = 0.1
+local MBMacroDelaySlider = MobileTab:CreateSlider({
+   Name = "Mobile Macro Delay",
+   Range = {0.001, 1},
+   Increment = 0.01,
+   Suffix = "Seconds",
+   CurrentValue = MBmacroDelay,
+   Flag = "MBmacrodly",
+   Callback = function(Value)
+       MBmacroDelay = Value
+   end,
+})
+
+
+
+    
+
+end)
