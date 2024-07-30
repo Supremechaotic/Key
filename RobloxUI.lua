@@ -49,19 +49,19 @@ end
 
 
 local themes = {
-    SchemeColor = Color3.fromRGB(35, 35, 35),
+    SchemeColor = Color3.fromRGB(240,240,240),
     Background = Color3.fromRGB(25, 25, 25),
     Header = Color3.fromRGB(34, 34, 34),
     TextColor = Color3.fromRGB(240,240,240),
-    ElementColor = Color3.fromRGB(240,240,240)
+    ElementColor = Color3.fromRGB(35, 35, 35)
 }
 local themeStyles = {
     Ocean = {
-        SchemeColor = Color3.fromRGB(35, 35, 35),
+        SchemeColor = Color3.fromRGB(240,240,240),
         Background = Color3.fromRGB(25, 25, 25),
         Header = Color3.fromRGB(34, 34, 34),
         TextColor = Color3.fromRGB(240,240,240),
-        ElementColor = Color3.fromRGB(240,240,240)
+        ElementColor = Color3.fromRGB(35, 35, 35)
     },
 }
 local oldTheme = ""
