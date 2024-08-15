@@ -875,7 +875,7 @@ end
 function RayfieldLibrary:CreateWindow(Settings)
 	local Passthrough = false
 	Topbar.Title.Text = Settings.Name
-	Main.Size = UDim2.new(0, 450, 0, 260)
+	Main.Size = UDim2.new(0, 0.318, 0, 0.327)
 	Main.Visible = true
 	Main.BackgroundTransparency = 1
 	LoadingFrame.Title.TextTransparency = 1
@@ -890,7 +890,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 	Topbar.Visible = false
 	Elements.Visible = false
 	LoadingFrame.Visible = true
-
+	local aspectRatio = Instance.new("UIAspectRatioConstraint")
+	aspectRatio.AspectRatio = 1.731
+	aspectRatio.AspectType = Enum.AspectType.FitWithinMaxSize
+	aspectRatio.DominantAxis = Enum.DominantAxis.Width
+	aspectRatio.Parent = Main	
 
 	pcall(function()
 		if not Settings.ConfigurationSaving.FileName then
