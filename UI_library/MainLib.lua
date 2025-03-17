@@ -947,185 +947,225 @@ function Library:CreateWindow(options)
             local default = options.Default or (multi and {} or 1)
             local callback = options.Callback or function() end
             
-            -- Create dropdown container with adjusted height for description
+            -- Create dropdown container
             local dropdownContainer = CreateInstance("Frame", {
                 Name = "Dropdown_" .. title,
                 Parent = tabContent,
                 BackgroundColor3 = Library.CurrentTheme.PrimaryElementColor,
                 BorderSizePixel = 0,
-                Size = UDim2.new(1, 0, 0, description ~= "" and 90 or 50)
+                Size = UDim2.new(1, 0, 0, description ~= "" and 70 or 50)
             })
-    
+            
+            -- Add corner radius
             local containerCorner = CreateInstance("UICorner", {
                 CornerRadius = UDim.new(0, 6),
                 Parent = dropdownContainer
             })
-
-    -- Create title label
-        local titleLabel = CreateInstance("TextLabel", {
-            Name = "Title",
-            Parent = dropdownContainer,
-            BackgroundTransparency = 1,
-            Position = UDim2.new(0, 10, 0, 5),
-            Size = UDim2.new(1, -20, 0, 20),
-            Font = Enum.Font.GothamBold,
-            Text = title,
-            TextColor3 = Library.CurrentTheme.PrimaryTextColor,
-            TextSize = 14,
-            TextXAlignment = Enum.TextXAlignment.Left
-        })
-    
-    -- Create title label
-        local titleLabel = CreateInstance("TextLabel", {
-            Name = "Title",
-            Parent = dropdownContainer,
-            BackgroundTransparency = 1,
-            Position = UDim2.new(0, 10, 0, 5),
-            Size = UDim2.new(1, -20, 0, 20),
-            Font = Enum.Font.GothamBold,
-            Text = title,
-            TextColor3 = Library.CurrentTheme.PrimaryTextColor,
-            TextSize = 14,
-            TextXAlignment = Enum.TextXAlignment.Left
-        })
-    
-    -- Create dropdown button with adjusted position
-    local dropdownButton = CreateInstance("TextButton", {
-        Name = "Button",
-        Parent = dropdownContainer,
-        BackgroundColor3 = Library.CurrentTheme.SecondaryElementColor,
-        BorderSizePixel = 0,
-        Position = UDim2.new(0, 10, 1, description ~= "" and -40 or -25), -- Move down when description is provided
-        Size = UDim2.new(1, -20, 0, 20),
-        Font = Enum.Font.Gotham,
-        Text = "",
-        TextColor3 = Library.CurrentTheme.PrimaryTextColor,
-        TextSize = 14,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        AutoButtonColor = false
-    })
-    
-    -- Add corner radius to dropdown button
-    local buttonCorner = CreateInstance("UICorner", {
-        CornerRadius = UDim.new(0, 4),
-        Parent = dropdownButton
-    })
-    
-    -- Create dropdown text
-    local dropdownText = CreateInstance("TextLabel", {
-        Name = "Text",
-        Parent = dropdownButton,
-        BackgroundTransparency = 1,
-        Position = UDim2.new(0, 10, 0, 0),
-        Size = UDim2.new(1, -40, 1, 0),
-        Font = Enum.Font.Gotham,
-        Text = multi and "(Select Items)" or values[default] or "Select...",
-        TextColor3 = Library.CurrentTheme.SecondaryTextColor,
-        TextSize = 14,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        TextTruncate = Enum.TextTruncate.AtEnd
-    })
-    
-    -- Create dropdown arrow
-    local dropdownArrow = CreateInstance("ImageLabel", {
-        Name = "Arrow",
-        Parent = dropdownButton,
-        BackgroundTransparency = 1,
-        Position = UDim2.new(1, -20, 0.5, -6),
-        Size = UDim2.new(0, 12, 0, 12),
-        Image = "rbxassetid://6031091004",
-        ImageColor3 = Library.CurrentTheme.SecondaryTextColor
-    })
-    
-    -- Create dropdown list - IMPORTANT: Move to ScreenGui to ensure it's on top
-    local dropdownList = CreateInstance("Frame", {
-        Name = "List",
-        Parent = Library.WindowInstance.ScreenGui, -- Changed from dropdownContainer to ScreenGui
-        BackgroundColor3 = Library.CurrentTheme.SecondaryElementColor,
-        BorderSizePixel = 0,
-        Position = UDim2.new(0, 0, 0, 0), -- Will be positioned dynamically when opened
-        Size = UDim2.new(0, 0, 0, 0), -- Will be sized dynamically when opened
-        ClipsDescendants = true,
-        Visible = false,
-        ZIndex = 100 -- Higher ZIndex to appear above other elements
-    })
-    
-    -- Add corner radius to dropdown list
-    local listCorner = CreateInstance("UICorner", {
-        CornerRadius = UDim.new(0, 4),
-        Parent = dropdownList
-    })
-    
-    -- Create dropdown list container
-    local listContainer = CreateInstance("ScrollingFrame", {
-        Name = "Container",
-        Parent = dropdownList,
-        BackgroundTransparency = 1,
-        BorderSizePixel = 0,
-        Position = UDim2.new(0, 0, 0, 0),
-        Size = UDim2.new(1, 0, 1, 0),
-        CanvasSize = UDim2.new(0, 0, 0, 0),
-        ScrollBarThickness = 2,
-        ScrollBarImageColor3 = Library.CurrentTheme.ScrollBarColor,
-        ZIndex = 100 -- Higher ZIndex to appear above other elements
-    })
-    
-    -- Rest of the dropdown code...
-    
-    -- Function to toggle dropdown - UPDATED to position correctly
-    local function toggleDropdown()
-        open = not open
-        
-        if open then
-            -- Get absolute position of dropdown button
-            local buttonAbsPos = dropdownButton.AbsolutePosition
-            local buttonAbsSize = dropdownButton.AbsoluteSize
             
-            -- Position the dropdown list directly below the button
-            dropdownList.Position = UDim2.new(0, buttonAbsPos.X, 0, buttonAbsPos.Y + buttonAbsSize.Y + 5)
-            dropdownList.Size = UDim2.new(0, buttonAbsSize.X, 0, 0)
-            dropdownList.Visible = true
+            -- Create title label
+            local titleLabel = CreateInstance("TextLabel", {
+                Name = "Title",
+                Parent = dropdownContainer,
+                BackgroundTransparency = 1,
+                Position = UDim2.new(0, 10, 0, description ~= "" and 8 or 5),
+                Size = UDim2.new(1, -20, 0, 20),
+                Font = Enum.Font.GothamBold,
+                Text = title,
+                TextColor3 = Library.CurrentTheme.PrimaryTextColor,
+                TextSize = 14,
+                TextXAlignment = Enum.TextXAlignment.Left
+            })
             
-            -- Animate opening
-            dropdownList:TweenSize(
-                UDim2.new(0, buttonAbsSize.X, 0, math.min(#values * 25 + 10, 150)),
-                "Out",
-                "Quad",
-                0.2,
-                true
-            )
-            dropdownArrow.Rotation = 180
-        else
-            -- Animate closing
-            dropdownList:TweenSize(
-                UDim2.new(0, dropdownList.AbsoluteSize.X, 0, 0),
-                "Out",
-                "Quad",
-                0.2,
-                true,
-                function()
-                    dropdownList.Visible = false
+            -- Create description label if provided
+            if description ~= "" then
+                local descriptionLabel = CreateInstance("TextLabel", {
+                    Name = "Description",
+                    Parent = dropdownContainer,
+                    BackgroundTransparency = 1,
+                    Position = UDim2.new(0, 10, 0, 30),
+                    Size = UDim2.new(1, -20, 0, 20),
+                    Font = Enum.Font.Gotham,
+                    Text = description,
+                    TextColor3 = Library.CurrentTheme.SecondaryTextColor,
+                    TextSize = 14,
+                    TextXAlignment = Enum.TextXAlignment.Left,
+                    TextWrapped = true
+                })
+            end
+            
+            -- Create dropdown button
+            local dropdownButton = CreateInstance("TextButton", {
+                Name = "Button",
+                Parent = dropdownContainer,
+                BackgroundColor3 = Library.CurrentTheme.SecondaryElementColor,
+                BorderSizePixel = 0,
+                Position = UDim2.new(0, 10, 1, description ~= "" and -30 or -25),
+                Size = UDim2.new(1, -20, 0, 20),
+                Font = Enum.Font.Gotham,
+                Text = "",
+                TextColor3 = Library.CurrentTheme.PrimaryTextColor,
+                TextSize = 14,
+                TextXAlignment = Enum.TextXAlignment.Left,
+                AutoButtonColor = false
+            })
+            
+            -- Add corner radius to dropdown button
+            local buttonCorner = CreateInstance("UICorner", {
+                CornerRadius = UDim.new(0, 4),
+                Parent = dropdownButton
+            })
+            
+            -- Create dropdown text
+            local dropdownText = CreateInstance("TextLabel", {
+                Name = "Text",
+                Parent = dropdownButton,
+                BackgroundTransparency = 1,
+                Position = UDim2.new(0, 10, 0, 0),
+                Size = UDim2.new(1, -40, 1, 0),
+                Font = Enum.Font.Gotham,
+                Text = multi and "(Select Items)" or values[default] or "Select...",
+                TextColor3 = Library.CurrentTheme.SecondaryTextColor,
+                TextSize = 14,
+                TextXAlignment = Enum.TextXAlignment.Left,
+                TextTruncate = Enum.TextTruncate.AtEnd
+            })
+            
+            -- Create dropdown arrow
+            local dropdownArrow = CreateInstance("ImageLabel", {
+                Name = "Arrow",
+                Parent = dropdownButton,
+                BackgroundTransparency = 1,
+                Position = UDim2.new(1, -20, 0.5, -6),
+                Size = UDim2.new(0, 12, 0, 12),
+                Image = "rbxassetid://6031091004",
+                ImageColor3 = Library.CurrentTheme.SecondaryTextColor
+            })
+            
+            -- Create dropdown list
+            local dropdownList = CreateInstance("Frame", {
+                Name = "List",
+                Parent = dropdownContainer,
+                BackgroundColor3 = Library.CurrentTheme.SecondaryElementColor,
+                BorderSizePixel = 0,
+                Position = UDim2.new(0, 10, 1, description ~= "" and -5 or 0),
+                Size = UDim2.new(1, -20, 0, 0),
+                ClipsDescendants = true,
+                Visible = false,
+                ZIndex = 5
+            })
+            
+            -- Add corner radius to dropdown list
+            local listCorner = CreateInstance("UICorner", {
+                CornerRadius = UDim.new(0, 4),
+                Parent = dropdownList
+            })
+            
+            -- Create dropdown list container
+            local listContainer = CreateInstance("ScrollingFrame", {
+                Name = "Container",
+                Parent = dropdownList,
+                BackgroundTransparency = 1,
+                BorderSizePixel = 0,
+                Position = UDim2.new(0, 0, 0, 0),
+                Size = UDim2.new(1, 0, 1, 0),
+                CanvasSize = UDim2.new(0, 0, 0, 0),
+                ScrollBarThickness = 2,
+                ScrollBarImageColor3 = Library.CurrentTheme.ScrollBarColor,
+                ZIndex = 5
+            })
+            
+            -- Add padding to list container
+            local listPadding = CreateInstance("UIPadding", {
+                Parent = listContainer,
+                PaddingLeft = UDim.new(0, 5),
+                PaddingRight = UDim.new(0, 5),
+                PaddingTop = UDim.new(0, 5),
+                PaddingBottom = UDim.new(0, 5)
+            })
+            
+            -- Add list layout to list container
+            local listLayout = CreateInstance("UIListLayout", {
+                Parent = listContainer,
+                SortOrder = Enum.SortOrder.LayoutOrder,
+                Padding = UDim.new(0, 5)
+            })
+            
+            -- Update list container canvas size
+            listLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+                listContainer.CanvasSize = UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y + 10)
+            end)
+            
+            -- Dropdown state
+            local open = false
+            local selected = multi and (type(default) == "table" and default or {}) or (values[default] or nil)
+            
+            -- Function to update dropdown text
+            local function updateText()
+                if multi then
+                    local items = {}
+                    for item, state in pairs(selected) do
+                        if state then
+                            table.insert(items, item)
+                        end
+                    end
+                    
+                    if #items == 0 then
+                        dropdownText.Text = "(None)"
+                    else
+                        dropdownText.Text = table.concat(items, ", ")
+                    end
+                else
+                    dropdownText.Text = selected or "Select..."
                 end
-            )
-            dropdownArrow.Rotation = 0
-        end
-    end
-    
-    -- Make sure all dropdown items have higher ZIndex
-    for i, value in ipairs(values) do
-        local item = CreateInstance("TextButton", {
-            Name = "Item_" .. value,
-            Parent = listContainer,
-            BackgroundColor3 = Library.CurrentTheme.PrimaryElementColor,
-            BorderSizePixel = 0,
-            Size = UDim2.new(1, -10, 0, 20),
-            Font = Enum.Font.Gotham,
-            Text = "",
-            TextColor3 = Library.CurrentTheme.PrimaryTextColor,
-            TextSize = 14,
-            AutoButtonColor = false,
-            ZIndex = 101 -- Higher ZIndex
-        })
+            end
+            
+            -- Function to toggle dropdown
+            local function toggleDropdown()
+                open = not open
+                
+                if open then
+                    dropdownList.Visible = true
+                    dropdownList:TweenSize(
+                        UDim2.new(1, -20, 0, math.min(#values * 25 + 10, 150)),
+                        "Out",
+                        "Quad",
+                        0.2,
+                        true
+                    )
+                    dropdownArrow.Rotation = 180
+                else
+                    dropdownList:TweenSize(
+                        UDim2.new(1, -20, 0, 0),
+                        "Out",
+                        "Quad",
+                        0.2,
+                        true,
+                        function()
+                            dropdownList.Visible = false
+                        end
+                    )
+                    dropdownArrow.Rotation = 0
+                end
+            end
+            
+            -- Dropdown button click handler
+            dropdownButton.MouseButton1Click:Connect(toggleDropdown)
+            
+            -- Create dropdown items
+            for i, value in ipairs(values) do
+                local item = CreateInstance("TextButton", {
+                    Name = "Item_" .. value,
+                    Parent = listContainer,
+                    BackgroundColor3 = Library.CurrentTheme.PrimaryElementColor,
+                    BorderSizePixel = 0,
+                    Size = UDim2.new(1, -10, 0, 20),
+                    Font = Enum.Font.Gotham,
+                    Text = "",
+                    TextColor3 = Library.CurrentTheme.PrimaryTextColor,
+                    TextSize = 14,
+                    AutoButtonColor = false,
+                    ZIndex = 6
+                })
                 
                 -- Add corner radius to item
                 local itemCorner = CreateInstance("UICorner", {
