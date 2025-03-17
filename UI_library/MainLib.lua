@@ -953,7 +953,7 @@ function Library:CreateWindow(options)
                 Parent = tabContent,
                 BackgroundColor3 = Library.CurrentTheme.PrimaryElementColor,
                 BorderSizePixel = 0,
-                Size = UDim2.new(1, 0, 0, description ~= "" and 90 or 50)
+                Size = UDim2.new(1, 0, 0, description ~= "" and 90 or 90)
             })
             
             -- Add corner radius
