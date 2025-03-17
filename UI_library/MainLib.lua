@@ -953,7 +953,7 @@ function Library:CreateWindow(options)
                 Parent = tabContent,
                 BackgroundColor3 = Library.CurrentTheme.PrimaryElementColor,
                 BorderSizePixel = 0,
-                Size = UDim2.new(1, 0, 0, description ~= "" and 90 or 50)
+                Size = UDim2.new(1, 0, 0, 90)
             })
             
             -- Add corner radius
@@ -1051,7 +1051,7 @@ function Library:CreateWindow(options)
                 Size = UDim2.new(0, 0, 0, 0), -- Will be sized dynamically when opened
                 ClipsDescendants = true,
                 Visible = false,
-                ZIndex = 100 -- Higher ZIndex to appear above other elements
+                ZIndex = 1000 -- Higher ZIndex to appear above other elements
             })
             
             -- Add corner radius to dropdown list
@@ -1071,7 +1071,7 @@ function Library:CreateWindow(options)
                 CanvasSize = UDim2.new(0, 0, 0, 0),
                 ScrollBarThickness = 2,
                 ScrollBarImageColor3 = Library.CurrentTheme.ScrollBarColor,
-                ZIndex = 100 -- Higher ZIndex to appear above other elements
+                ZIndex = 1000 -- Higher ZIndex to appear above other elements
             })
             
             -- Rest of the dropdown code...
