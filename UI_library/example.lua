@@ -13,7 +13,7 @@ local Window = Library:CreateWindow({
 
 -- Create tabs
 local Tabs = {
-    Main = Window:AddTab({ Title = "Main", Icon = "Srtt" }),
+    Main = Window:AddTab({ Title = "Main", Icon = "Home" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
